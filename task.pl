@@ -25,6 +25,18 @@ sub Frequency {
     }
     return %result;
 }
+#Pass a sequence Maybe this is how you calculate kmers idk
+sub count_Kmers {
+    my ($seq, $kmerSize) = (@_);
+    my @kmers;
+    my $count = 0;
+    for (my $i = 0; $i + $kmerSize <= length($seq); $i++) {
+        #I don't know exactly what we need but here is an array of kmers of any lenght
+	$count++;
+	push @kmers, substr($seq, $i, $kmerSize);
+    }
+    return $count;
+}
 
 sub Main {
     # Take 1 arg $sequnece, perform all the taskes
@@ -65,6 +77,11 @@ sub Main {
     else { say "No CTCF binding motif detected in this region" }
 
     # Task 6. Count 5-mer
+    print "Number of 5mers: ";
+    print count_Kmers($seq,5). "\n";
+
+
+    
     # TODO: Due Th
 }
 

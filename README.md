@@ -19,3 +19,10 @@ index.txt -> contains starting positions for all the introns and exons
      get strings for each intron and exon that's fine. I'm pushing this is a starting point.
 -Matt
 ---------------------------------------------------------------------------------------------
+************************
+We still need a flow chart and psudocode.
+
+
+******************
+curl -L http://cpanmin.us | perl - --sudo Math::Cartesian::Product
+To install the library I don't like cpan.
