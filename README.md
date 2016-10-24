@@ -26,3 +26,9 @@ We still need a flow chart and psudocode.
 ******************
 curl -L http://cpanmin.us | perl - --sudo Math::Cartesian::Product
 To install the library I don't like cpan.
+
+---------------------------------------------------------------------------------------------
+Some updates:
+I'm working on core promoter motifs detection
+I'm thinking that we can just hard code single and di- nucleotide so that we don't need Math::Cartesian::Product. What do you guys think?
+-Yadi
