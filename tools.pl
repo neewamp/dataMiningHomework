@@ -44,15 +44,15 @@ sub exon_intron_init(){#creates the arrays of strings for introns and exons
     push(@introns,$temp);
   }
 
-  foreach $string(@exons){
-   print " exon size: "; print length($string);
-  }
-  print "\n\n";
+  # foreach $string(@exons){
+  #  print " exon size: "; print length($string);
+  # }
+  # print "\n\n";
 
-  foreach $string(@introns){
-   print " intron size: "; print length($string);
-  }
-  print "\n\n";
+  # foreach $string(@introns){
+  #  print " intron size: "; print length($string);
+  # }
+  # print "\n\n";
 }
 #################################################################################
 sub file_test{#some testing prints for array/string integrity
