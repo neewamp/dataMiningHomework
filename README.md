@@ -32,3 +32,5 @@ Some updates:
 I'm working on core promoter motifs detection
 I'm thinking that we can just hard code single and di- nucleotide so that we don't need Math::Cartesian::Product. What do you guys think?
 -Yadi
+Sorry guys, it was supposed that a list of activities was going to be created so each one could choose a couple of tasks. What items from the homework are not done yet?
+-Isaac
