@@ -36,3 +36,5 @@ Sorry guys, it was supposed that a list of activities was going to be created so
 -Isaac
 
 Isaac if you want to look at what the current program is outputing by runing analysis.pl and see if you can verify that the output is up to the specifications of the project that would be great.
+
+Yes, i will do that. I will also do the pseudocode and flowchart if no one has already done it
