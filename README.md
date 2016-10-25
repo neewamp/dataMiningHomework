@@ -39,3 +39,6 @@ Isaac if you want to look at what the current program is outputing by runing ana
 
 Yes, i will do that. I will also do the pseudocode and flowchart if no one has already done it
 I will upload them tomorrow by noon. I can print everything and take the hard copy to the course.
+------------------------------------------------------------------------------------------
+I am now using require 'file.pl' structure to resolve perl's bullshit. As a requirement for me to do this, I have a return 1; statement at the bottom of tools.pl and task.pl. When I pulled this morning, it wasn't working, but I removed some junk from myown tools.pl file I accidently left in there, and now it's working. If someone could check the output that would be siick.
+-Matt
