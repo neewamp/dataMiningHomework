@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use Math::Cartesian::Product; # Required, use cpan to install this package
+use Math::Cartesian::Product;
 
 sub GenerateHash {
     # Take 1 arg $length, generate hash of all the posible nucleotides of this length
