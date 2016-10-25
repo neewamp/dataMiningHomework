@@ -11,24 +11,23 @@ $exons_only = make_spliced('exon');#create string that holds sequence w/o promot
 $introns_only = make_spliced('intron'); #create string that holds only the introns
 print Main($promoter);
 print "\n";
-print "Exons stats: \n\n";
+
+print "\nExons stats: \n";
 # Main($exons_only);
 # print "Intron stats: \n ";
 # Main($introns_only);
-print "\n";
 $len = scalar(@estart);
-print "\n";
 for(my $i = 0; $i < $len-1;$i++){
-    print "Exon "; print $i+1;
-    print " stats: \n$estart[$i] \n";
-    Main(substr($sequence,$estart[$i],$estart[$i+1]-$estart[$i]));
-}    
-print "\nIntron stats:\n\n";
+    print "\n================================ Exon ".($i+1)." ================================\n";
+    print " stats: $estart[$i] \n";
+    Main(substr($sequence,$estart[$i]-1,$istart[$i]-$estart[$i]));
+}
+print "\nIntron stats:\n";
 $len = scalar(@istart);
 for(my $i = 0; $i < $len-1;$i++){
-    print "Exon "; print $i+1;
-    print " stats: \n$istart[$i] \n";
-    Main(substr($sequence,$istart[$i],$istart[$i+1]-$istart[$i]));
+    print "\n=============================== Intron ".($i+1)." ===============================\n";
+    print " stats: $istart[$i] \n";
+    Main(substr($sequence,$istart[$i]-1,$estart[$i+1]-$istart[$i]));
 }
 
 

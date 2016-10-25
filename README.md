@@ -45,3 +45,8 @@ I am now using require 'file.pl' structure to resolve perl's bullshit. As a requ
 
 
 I will take hard a hard copy, except the document of each one collaborations and biology significance
+
+
+------------------------------------------------------------------------------------------
+Let's write the thing that each of us did here so Isaac can compile them and print it out.
+Yadi Zhou: wrote code that do the analysis (frequencies, dinucleotides odd, promoter, CTCF)
