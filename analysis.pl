@@ -1,5 +1,5 @@
-do 'tools.pl';
-do 'task.pl';
+require 'tools.pl';
+require 'task.pl';
 init();#fill in strings for promotor and sequence, tables for x0
 #file_test();#check the arrays that result from the file inputs
 exon_intron_init();#make 2 arrays, one is the exons and one the introns

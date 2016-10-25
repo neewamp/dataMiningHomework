@@ -44,7 +44,7 @@ sub exon_intron_init(){#creates the arrays of strings for introns and exons
     push(@introns,$temp);
   }
   
-  for(
+  
 
 
   # foreach $string(@exons){
@@ -111,5 +111,5 @@ sub init{ #fill in strings $sequence, $promoter and exon/intron table
   print "@estart";
 }
 
-
+return 1;
 

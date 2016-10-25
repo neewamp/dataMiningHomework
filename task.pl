@@ -99,5 +99,6 @@ sub Main {
 
 
 # TODO: Use Main for each region
-Main("ATATGCG") # An example.
+#Main("ATATGCG") # An example.
+return 1;
 
