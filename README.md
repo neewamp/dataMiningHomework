@@ -42,3 +42,6 @@ I will upload them tomorrow by noon. I can print everything and take the hard co
 ------------------------------------------------------------------------------------------
 I am now using require 'file.pl' structure to resolve perl's bullshit. As a requirement for me to do this, I have a return 1; statement at the bottom of tools.pl and task.pl. When I pulled this morning, it wasn't working, but I removed some junk from myown tools.pl file I accidently left in there, and now it's working. If someone could check the output that would be siick.
 -Matt
+
+
+I will take hard a hard copy, except the document of each one collaborations and biology significance
