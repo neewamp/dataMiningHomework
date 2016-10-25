@@ -20,22 +20,20 @@ sub Frequency {
         if ($hash{$_}) {
             $f = $hash{$_} / $total;
             $result{$_} = $f;
-            say $_.": ".sprintf("%.2f", $f * 100)."%" if ($hash{$_});
+            say $_.": ".sprintf("%.2f", $f * 100)."%";
         }
     }
     return %result;
 }
-#Pass a sequence Maybe this is how you calculate kmers idk
-sub count_Kmers {
+
+sub CountKmers {
+    # Take 2 args $seq, $kmerSize, return hash of kmers as key, their occurrences as value
     my ($seq, $kmerSize) = (@_);
-    my @kmers;
-    my $count = 0;
+    my %kmers;
     for (my $i = 0; $i + $kmerSize <= length($seq); $i++) {
-        #I don't know exactly what we need but here is an array of kmers of any lenght
-	$count++;
-	push @kmers, substr($seq, $i, $kmerSize);
+        $kmers{substr($seq, $i, $kmerSize)} += 1;
     }
-    return $count;
+    return %kmers;
 }
 
 sub Main {
@@ -53,36 +51,48 @@ sub Main {
     $single{substr($seq, length($seq) - 1)} += 1;
 
     # Task 2. Calculate freuqnencies
-    say "Frequencies of single nucleotide:";
+    say "**** Frequencies of single nucleotide:";
     my %singleF = Frequency(\%single);
-    say "Frequencies of dinucleotide:";
+    say "**** Frequencies of dinucleotide:";
     my %doubleF = Frequency(\%double);
 
     # Task 3. Calculate fxy/fx/fy
-    say "";
-    say "Calculating dinucleotide odds ratio";
+    say "**** Dinucleotide odds ratio:";
     foreach (keys %double) {
         if ($double{$_}) {
             say $_.": ".sprintf("%.2f", $doubleF{$_} / $singleF{substr($_, 0, 1)} / $singleF{substr($_, 1, 1)}); }
     }
 
-    # Task 4. Promoter detection
-    # TODO: get a list of promoter in re form, apply search
+    # Task 4. Core promoter motifs detection
+    say "**** Detecting core promoter motifs:";
+    if ($seq =~ /TATA[AT]AA[GA]/) {say "TATA Box is detected on sense strand"}
+    elsif ($seq =~ /[CT]TT[AT]TATA/) {say "TATA Box is detected on antisense strand"}
+    if ($seq =~ /TCA[GT]T[CT]/) {say "Inr (Drosophila) is detected on sense strand"}
+    elsif ($seq =~ /[GA]A[AC]TGA/) {say "Inr (Drosophila) is detected on antisense strand"}
+    if ($seq =~ /[CT][CT]A[ACGT][AT][CT][CT]/) {say "Inr (Human) is detected on sense strand"}
+    elsif ($seq =~ /[GA][GA][AT][ACGT]T[GA][GA]/) {say "Inr (Human) is detected on antisense strand"}
+    if ($seq =~ /C[GC]A[GA]C[GC][GC]AAC/) {say "MTE (Drosophila) is detected on sense strand"}
+    elsif ($seq =~ /GTT[GC][GC]G[CT]T[GC]G/) {say "MTE (Drosophila) is detected on antisense strand"}
+    if ($seq =~ /[GA]G[AT][CT][^T]T/) {say "DPE (Drosophila) is detected on sense strand"}
+    elsif ($seq =~ /A[^A][GA][AT]C[CT]/) {say "DPE (Drosophila) is detected on antisense strand"}
+    if ($seq =~ /[GC][GC][GA]CGCC/) {say "BRE^u is detected on sense strand"}
+    elsif ($seq =~ /GGCG[CT][GC][GC]/) {say "BRE^u is detected on antisense strand"}
+    if ($seq =~ /[GA]T[^C][GT][GT][GT][GT]/) {say "BRE^d is detected on sense strand"}
+    elsif ($seq =~ /[AC][AC][AC][AC][^G]A[CT]/) {say "BRE^d is detected on antisense strand"}
+    if ($seq =~ /[^C][GC]G[CT]GG[GA]A[GC][AC]/) {say "XCPE1 (Human) is detected on sense strand"}
+    elsif ($seq =~ /[GT][GC]T[CT]CC[GA]C[GC][^G]/) {say "XCPE1 (Human) is detected on antisense strand"}
+    if ($seq =~ /CTTC.{1,11}CTGT.{5,14}AGC/) {say "DCE is detected on sense strand"}
+    elsif ($seq =~ /GCT.{5,14}ACAG.{1,11}GAAG/) {say "DCE is detected on antisense strand"}
 
     # Task 5. CTCF binding motif detection
-    say "";
-    if (($seq =~ /CCGCG.GG.GGCAG/) or ($seq =~ /CTGCC.CC.CGCGG/)) { # Also need to consider the other strand
-        say "This region contains the CTCF binding motif"
-    }
+    say "**** Detecting CTCF binding motif:";
+    if ($seq =~ /CCGCG.GG.GGCAG/) {say "CTCF binding motif is detected on sense strand"}
+    elsif ($seq =~ /CTGCC.CC.CGCGG/) {say "CTCF binding motif is detected on antisense strand"}
     else { say "No CTCF binding motif detected in this region" }
 
     # Task 6. Count 5-mer
-    print "Number of 5mers: ";
-    print count_Kmers($seq,5). "\n";
-
-
-    
-    # TODO: Due Th
+    say "**** Counting 5-mers. Result not shown (too many entries...)";
+    my %fiveMer = CountKmers($seq, 5);
 }
 
 
