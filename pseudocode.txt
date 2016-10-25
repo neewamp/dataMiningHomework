@@ -1,0 +1,219 @@
+
+call init function
+call exon_intron_init function
+
+
+
+
+Set $exons_only to what funtion make_spliced returns sending as parameter 'exon'
+Set $introns_only to what function make_spliced returns sending as parameter 'intron' 
+
+print message "Exons stats: \n\n"
+
+set $len to the length of @estart
+
+for  $i equals 0 to $i equals $len - 1:
+    print "Exon " 
+	print "$i + 1"
+    print each element of @estart
+    call funcition Main sending as parameter $sequence , the current element of @estart, and the subs of the next element - the current element of @estart 
+    
+print "\nIntron stats:\n\n";
+
+set $len to the length of @istart
+for $i equals 0 to $i equals $len - 1 :
+    print "Exon "
+	print "$i + 1"
+    print each element of @istart
+    call function Main sending as a parameter $sequence , the current element of @istart, and the subs of the next element - the current element of @istart
+
+
+
+Function GenerateHash :
+
+    return a hashmap of all possible nucleotides according to a length it receives as argument
+
+
+Function Frequency :
+    
+    Set %hash to the first argument received 
+    Set $total to 0
+    Set $total to $total + the sum of all elements of %hash
+    Generate a tuple with %result and $f
+    for each element of %hash :
+        if the current element exists:
+            Set $f to the current element divided by $total
+            Set the current element of $result to $f
+            print the current element, $f times 100 
+        
+    
+    return %result
+
+
+Function CountKmers :
+    
+    Set $seq and $kmerSize to the arguments received
+    Create an empty hash %kmers
+    for $i equals 0 to $i equals length of $seq:
+        Create one element for $kmers whose key is a substring of $seq, from position $i and lenghth of $KmerSize, and its value is a counter
+    
+    return %kmers;
+}
+
+Function Main :
+    
+    Set $seq to the first element of the fist argument;
+    
+    Set %single to the value returned by function GenerateHash with a parameter 1
+    my %double = GenerateHash(2);
+    
+    for $index equals 0 to $index equals length of $seq - 1:
+        Add an element to $single whose key is a a substring of $seq from position $index and length 1  and its value is a counter
+        Add an element to $double whose key is a a substring of $seq from position $index and length 2  and its value is a counter
+    
+    Add an element to $single whose key is a substring of $seq with length: length of $seq - 1
+
+    
+    print "**** Frequencies of single nucleotide:";
+    Set %singleF to the value returned by function Frequency with a parameter %single
+    print "**** Frequencies of dinucleotide:";
+    Set %doubleF to the value returned by function Frequency with a parameter %double
+
+  
+    print "**** Dinucleotide odds ratio:";
+    for each element of %double:
+        if the current element exists:
+            print %doubleF current element , %singleF element with current element substring of length 1 in position 1 divided by %singleF element with current element substring of length 1 in position 2
+    
+
+    # Task 4. Core promoter motifs detection
+    print "**** Detecting core promoter motifs:";
+    if (/TATA[AT]AA[GA]/ is in $seq) {print "TATA Box is detected on sense strand"}
+    elsif (/[CT]TT[AT]TATA/ is in $seq) {print "TATA Box is detected on antisense strand"}
+    if (/TCA[GT]T[CT]/ is in $seq) {print "Inr (Drosophila) is detected on sense strand"}
+    elsif (/[GA]A[AC]TGA/ is in $seq) {print "Inr (Drosophila) is detected on antisense strand"}
+    if (/[CT][CT]A[ACGT][AT][CT][CT]/ is in $seq) {print "Inr (Human) is detected on sense strand"}
+    elsif (/[GA][GA][AT][ACGT]T[GA][GA]/ is in $seq) {print "Inr (Human) is detected on antisense strand"}
+    if (/C[GC]A[GA]C[GC][GC]AAC/ is in $seq) {print "MTE (Drosophila) is detected on sense strand"}
+    elsif (/GTT[GC][GC]G[CT]T[GC]G/ is in $seq) {print "MTE (Drosophila) is detected on antisense strand"}
+    if (/[GA]G[AT][CT][^T]T/ is in $seq) {print "DPE (Drosophila) is detected on sense strand"}
+    elsif (/A[^A][GA][AT]C[CT]/ is in $seq) {print "DPE (Drosophila) is detected on antisense strand"}
+    if ( /[GC][GC][GA]CGCC/ is in $seq) {print "BRE^u is detected on sense strand"}
+    elsif (/GGCG[CT][GC][GC]/ is in $seq) {print "BRE^u is detected on antisense strand"}
+    if (/[GA]T[^C][GT][GT][GT][GT]/ is in $seq) {print "BRE^d is detected on sense strand"}
+    elsif (/[AC][AC][AC][AC][^G]A[CT]/ is in $seq) {print "BRE^d is detected on antisense strand"}
+    if (/[^C][GC]G[CT]GG[GA]A[GC][AC]/ is in $seq) {print "XCPE1 (Human) is detected on sense strand"}
+    elsif (/[GT][GC]T[CT]CC[GA]C[GC][^G]/ is in $seq) {print "XCPE1 (Human) is detected on antisense strand"}
+    if (/CTTC.{1,11}CTGT.{5,14}AGC/ is in $seq) {print "DCE is detected on sense strand"}
+    elsif (/GCT.{5,14}ACAG.{1,11}GAAG/ is in $seq) {print "DCE is detected on antisense strand"}
+
+    # Task 5. CTCF binding motif detection
+    print "**** Detecting CTCF binding motif:"
+    if (/CCGCG.GG.GGCAG/ is in $seq) {print "CTCF binding motif is detected on sense strand"}
+    elsif (/CTGCC.CC.CGCGG/ is in $seq) {print "CTCF binding motif is detected on antisense strand"}
+    else { print "No CTCF binding motif detected in this region" }
+
+    # Task 6. Count 5-mer
+    print "**** Counting 5-mers. Result not shown (too many entries...)"
+    set %fiveMer to the value returned by function CountKmers with parameters $seq and 5
+    Set $totalCount to the size of %fiveMer
+    print "Unique fiveMer count: $totalCount";
+
+return 1;
+
+
+Function freq(2):
+  my $relative_freq
+  
+
+return $relative_freq
+
+
+Function make_spliced(1):
+  my $spliced;
+  if first argument equals 'exon':
+    for each element of @exons:   
+      set $spliced to concatenate $spliced with $exon
+    
+  elsif first argument equals 'intron':
+    foreach element in @introns
+      Set $spliced to concatenate $spliced with $intron
+
+  else :
+    print "Subroutine make_spliced passed bad input. \"exon\" for exonstring,";
+    print " \"intron\" for intron string. You passed: ";
+    print first argument;
+  
+return $spliced;
+}
+
+Function sub exon_intron_init:
+  @exons;
+  @introns;
+
+  for $c equals 0 to $c equals size of @estart:
+    Set $temp to substring of $sequence starting at @estart[$c] with length @istart[$c]-@estart[$c]
+    Insert $temp into @exons
+  
+
+  for $c equals 0 to $c equals size of @istart:
+    Set $temp to substring of $sequence starting at @istart[$c] with length @estart[$c]-@istart[$c]
+    Insert $temp into @introns
+  
+  
+
+sub file_test{
+  print "Sequence size:";
+  print length($sequence); print " Printing sequence: $sequence";
+  print "\n\n\n";
+  print $promoter;
+  print "\n\n\n";
+  print "exon start: @estart \n";
+  print "intron start: @istart \n";
+}
+
+sub init{ 
+  set $seqnam to 'sequence.txt'
+  set $pronam to 'promoter.txt'
+  set $indexnam to 'index.txt'
+
+  open($seqin, '<', $seqnam);
+    Set $sequence to file data;
+  close $seqin;
+
+  open($promin, '<', $pronam);
+    set $promoter to file data;
+  close $promin;
+
+  @estart;
+  @istart;
+  set $indexnam to 'index.txt'
+  open($indexin, '<', $indexnam);
+
+
+    set $prom_len to file data 
+    Removes new line character from $prom_len
+
+
+    set $prime to file data  
+    Removes new line character from $prime)
+    for $c equeals 0 to $prime not equals -1776:
+      set @estart[$c] to $prime
+      set prime to file data
+      Removes new line character from $prime
+    
+
+    set $prime to file data   
+    Removes new line character from $prime
+    for $c equals 0 to $prime not equals -1776:  
+      set @istart[$c] to $prime
+      set $prime to file data
+      Removes new line character from $prime
+    
+  close $indexin;
+
+  print "@estart";
+
+
+return 1;
+
