@@ -9,7 +9,8 @@ exon_intron_init();#make 2 arrays, one is the exons and one the introns
 ############### Main? ####################################
 $exons_only = make_spliced('exon');#create string that holds sequence w/o promoter/introns
 $introns_only = make_spliced('intron'); #create string that holds only the introns
-
+print Main($promoter);
+print "\n";
 print "Exons stats: \n\n";
 # Main($exons_only);
 # print "Intron stats: \n ";
@@ -29,6 +30,8 @@ for(my $i = 0; $i < $len-1;$i++){
     print " stats: \n$istart[$i] \n";
     Main(substr($sequence,$istart[$i],$istart[$i+1]-$istart[$i]));
 }
+
+
 
 
 
