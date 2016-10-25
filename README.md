@@ -34,3 +34,5 @@ I'm thinking that we can just hard code single and di- nucleotide so that we don
 -Yadi
 Sorry guys, it was supposed that a list of activities was going to be created so each one could choose a couple of tasks. What items from the homework are not done yet?
 -Isaac
+
+Isaac if you want to look at what the current program is outputing by runing analysis.pl and see if you can verify that the output is up to the specifications of the project that would be great.

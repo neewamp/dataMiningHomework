@@ -93,6 +93,8 @@ sub Main {
     # Task 6. Count 5-mer
     say "**** Counting 5-mers. Result not shown (too many entries...)";
     my %fiveMer = CountKmers($seq, 5);
+    my $totalCount = keys(%fiveMer);
+    say "Unique fiveMer count: $totalCount";
 }
 
 

@@ -43,6 +43,9 @@ sub exon_intron_init(){#creates the arrays of strings for introns and exons
     my $temp = substr($sequence,@istart[$c],@estart[$c+1]-@istart[$c]);
     push(@introns,$temp);
   }
+  
+  for(
+
 
   # foreach $string(@exons){
   #  print " exon size: "; print length($string);
